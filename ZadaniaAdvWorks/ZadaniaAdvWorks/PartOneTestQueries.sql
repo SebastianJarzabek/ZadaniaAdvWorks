@@ -30,3 +30,20 @@ go
 delete Production.UnitMeasure 
 where Name='buble'
 go
+
+create schema [Office]
+go 
+
+create table Garage 
+(
+[GarageID] int identity not null,
+[Description] nchar(100) not null,
+[ModifiedDate] datetime default GETDATE()
+);
+
+
+
+
+
+
+ 
