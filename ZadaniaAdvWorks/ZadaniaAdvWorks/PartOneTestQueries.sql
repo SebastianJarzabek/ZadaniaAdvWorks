@@ -38,12 +38,22 @@ create table Garage
 (
 [GarageID] int identity not null,
 [Description] nchar(100) not null,
-[ModifiedDate] datetime default GETDATE()
+[ModifiedDate] datetime2 default sysdatetime(),
+primary key (GarageId)
 );
 
+alter schema office
+transfer Garage
 
 
 
+INSERT INTO [dbo].[Garage]
+           ([Description]
+           ,[ModifitedDate])
+     VALUES
+           ('lalala'
+           ,default)
+GO
 
-
- 
+select * from Garage
+go
