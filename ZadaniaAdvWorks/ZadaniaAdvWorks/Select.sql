@@ -2,7 +2,7 @@
 USE AdventureWorks
 GO
 --1.2 Wyœwietl wszystko z tabeli Person.Person. Skorzystaj  ze wskazówek zawartych w lekcji, w tym: jak korzystaæ z aliasu tabeli, intelisense, notacji w osobnych linijkach itp.
-select 
+select
 	pp.BusinessEntityID
 	,pp.FirstName + ' ' + pp.LastName as 'Full name'
 	,pp.EmailPromotion
@@ -102,15 +102,54 @@ where
 JobTitle in ('Control Specialist','Benefits Specialist','Accounts Receivable Specialist') 
 go
 --2.1 Wyœwietl z tabeli HumanResources.Employee rekordy, które w kolumnie JobTitle zawieraj¹ tekst "Specialist"
-
+Select 
+hre.JobTitle
+from HumanResources.Employee as hre
+where JobTitle like '%Specialist%'
+go
 --2.2 Wyœwietl tylko te rekordy, które jednoczeœnie zawieraj¹ "Specialist" i "Marketing"
-
+Select 
+	hre.JobTitle
+from HumanResources.Employee as hre
+where 
+	JobTitle like '%Specialist%' 
+	and 
+	JobTitle like  '%Marketing%'
+go
 --2.3 Wyœwietl te rekordy, które zawieraj¹ "Specialist" lub "Marketing"
-
+Select 
+	hre.JobTitle
+from HumanResources.Employee as hre
+where 
+	JobTitle like '%Specialist%' 
+	or 
+	JobTitle like  '%Marketing%'
+go
 --2.4 Z tabeli Production.Product wyœwietl tylko te rekordy, które zawieraj¹ w kolumnie Name chocia¿ jedna cyfrê
-
+Select 
+	pp.[Name]
+from Production.Product as pp
+where 
+	Name like '%[0-9]%'
+go
 --2.5 Wyœwietl te rekordy, które w nazwie zawieraj¹ dwie cyfry ko³o siebie
-
+Select 
+	pp.[Name]
+from Production.Product as pp
+where 
+	Name like '%[0-9][0-9]%'
+go
 --2.6 Wyœwietl te rekordy, które w nazwie zawieraj¹ dwie cyfry ko³o siebie ale nie koñcz¹ siê cyfr¹
-
+Select 
+	pp.[Name]
+from Production.Product as pp
+where 
+	Name like '%[0-9][0-9]%[^0-9]'
+go
 --2.7 Wyœwietl te rekordy, w których nazwa sk³ada siê z 4 dowolnych znaków
+Select 
+	pp.[Name]
+from Production.Product as pp
+where 
+	Name like '____'
+go
