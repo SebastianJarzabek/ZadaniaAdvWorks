@@ -154,18 +154,35 @@ where
 	Name like '____'
 go
 --3.1 Tabela Sales.SalesOrderDetail zawiera szczegó³owe informacje o sprzeda¿y poszczególnych zamówieñ. Kolumna UnitPrice zawiera informacje o cenie, a OrderQty o iloœci sprzedanych produktów. Wylicz wartoœæ sprzeda¿y jako wynik mno¿enia tych dwóch pól
-
-
+select 
+ssod.UnitPrice*ssod.OrderQty as Sell
+from Sales.SalesOrderDetail as ssod
+go
 --3.2 Tabela zawiera równie¿ kolumnê UnitPriceDiscount oznaczaj¹c¹ rabat od podstawowej ceny. Wylicz wartoœæ sprzeda¿y produktu jeœli cena by³a obni¿ona o UnitPriceDiscount.
-
-
+select
+(ssod.UnitPrice-ssod.UnitPriceDiscount)*ssod.OrderQty as Sell
+from Sales.SalesOrderDetail as ssod
+go
 --3.3 Tabel Sales.CreditCard zawiera informacje o typie karty (CardType) i numerze karty kredytowej (CardNumber). Wyœwietl oba te pola po³¹czone znakiem ':'
-
-
+select 
+scd.CardType+' : '+scd.CardNumber as 'Full Card'
+from Sales.CreditCard as scd
+go
 --3.4 Tabela Sales.SalesOrderHeader zawiera informacje o numerze zamówienia (SalesOrderNumber) i numerze zakupu (PurchaseOrderNumber). Wyœwietl obie kolumny
-
-
+select
+ssoh.SalesOrderNumber
+,ssoh.PurchaseOrderNumber
+from Sales.SalesOrderHeader as ssoh
+go
 --3.5 Dodaj kolumnê wyliczan¹ która oba te pola ³¹czy znakiem '-'. Zauwa¿ co jest wyœwietlane je¿eli PurchaseOrderNumber jest równe NULL
-
-
+select
+ssoh.SalesOrderNumber
+,ssoh.SalesOrderID+'-'+ssoh.PurchaseOrderNumber
+from Sales.SalesOrderHeader as ssoh
+go
 --3.6 Korzystaj¹c z funkcji CONCAT po³¹cz ze sob¹ oba pola znakiem '-'. Ponownie zobacz wyliczan¹ wartoœæ dla rekordów z PurchaseOrderNumber równym NULL
+select
+ssoh.SalesOrderNumber
+,CONCAT(ssoh.SalesOrderID,'-',ssoh.PurchaseOrderNumber)
+from Sales.SalesOrderHeader as ssoh
+go
