@@ -186,3 +186,50 @@ ssoh.SalesOrderNumber
 ,CONCAT(ssoh.SalesOrderID,'-',ssoh.PurchaseOrderNumber)
 from Sales.SalesOrderHeader as ssoh
 go
+--4.1 Do poni¿szych zapytañ dodaj aliasy dla kolumn wyliczanych:
+
+--alias Total
+
+SELECT UnitPrice*OrderQty as Total 
+FROM Sales.SalesOrderDetail 
+
+--alias TotalWithDiscount
+
+SELECT 
+(UnitPrice-UnitPriceDiscount)*OrderQty TotalWithDiscount
+FROM Sales.SalesOrderDetail 
+
+--alias CardType and CardNumber
+
+SELECT Cardtype+':'+CardNumber as 'CardType and CardNumber'
+FROM Sales.CreditCard 
+
+--alias Sales And Purchase Order Number
+
+SELECT 
+ SalesOrderNumber
+ ,PurchaseOrderNumber 
+ ,SalesOrderNumber+'-'+PurchaseOrderNumber as 'Sales And Purchase Order Number'
+FROM Sales.SalesOrderHeader
+
+
+--4.2 Skróæ nastêpuj¹ce zapytanie korzystaj¹c z aliasów tabel:
+
+SELECT 
+ SalesOrderNumber
+ ,ProductID
+ ,UnitPrice
+ ,TaxAmt
+FROM Sales.SalesOrderHeader as ssoh
+JOIN Sales.SalesOrderDetail as ssod 
+ON ssoh.SalesOrderID = ssod.SalesOrderID
+
+
+--4.3 Dodaj do klauzuli WHERE warunek pododuj¹cy wyœwietlenie tylko tych rekordów, które maj¹ wartoœæ Total wiêksz¹ od 10000
+
+SELECT 
+ sod.ProductID
+ ,sod.SalesOrderID
+ ,sod.OrderQty * sod.UnitPrice AS Total
+FROM Sales.SalesOrderDetail sod
+where (sod.OrderQty * sod.UnitPrice)>10000
