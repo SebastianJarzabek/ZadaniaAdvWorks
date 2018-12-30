@@ -233,3 +233,45 @@ SELECT
  ,sod.OrderQty * sod.UnitPrice AS Total
 FROM Sales.SalesOrderDetail sod
 where (sod.OrderQty * sod.UnitPrice)>10000
+
+--5.1 Wyœwietl wszystkie informacje z tabeli HumanResources.Employee. Uporz¹dkuj dane w kolejnoœci wg daty urodzenia (BirthDay) rosn¹co
+select 
+hre.BirthDate 
+from HumanResources.Employee as hre
+order by hre.BirthDate asc
+go
+--5.2 Zmieñ kolejnoœæ na malej¹c¹
+select 
+hre.BirthDate 
+from HumanResources.Employee as hre
+order by hre.BirthDate desc
+go
+--5.3 Wylicz w zapytaniu wiek (od roku z daty dzisiejszej odejmij rok z daty urodzenia). Zaaliasuj kolumnê jako Age. Posortuj dane wg tej kolumny malej¹co
+select 
+YEAR(GETDATE()) - YEAR(hre.BirthDate) as Age
+from HumanResources.Employee as hre
+order by Age asc
+go
+--5.4 Z tabeli Production.Product wyœwietl ProductId, Name, ListPrice, Class, Style i Color. Uporz¹dkuj dane wg class i style
+select
+pp.ProductID
+,pp.[Name]
+,pp.ListPrice
+,pp.Class
+,pp.Style
+,pp.Color
+from Production.Product as pp
+order by pp.Class asc, pp.Style asc
+go
+--5.5 Zmieñ poprzednie polecenie tak, aby sortowanie odbywa³o siê w oparciu o numer kolumny, a nie nazwê (pamiêtaj - to jest niezalecane rozwi¹zanie, ale warto je znaæ!)
+select
+pp.ProductID
+,pp.[Name]
+,pp.ListPrice
+,pp.Class
+,pp.Style
+,pp.Color
+from Production.Product as pp
+order by pp.ProductID asc
+go
+
