@@ -101,4 +101,16 @@ from HumanResources.Employee as hre
 where 
 JobTitle in ('Control Specialist','Benefits Specialist','Accounts Receivable Specialist') 
 go
- 
+--2.1 Wyœwietl z tabeli HumanResources.Employee rekordy, które w kolumnie JobTitle zawieraj¹ tekst "Specialist"
+
+--2.2 Wyœwietl tylko te rekordy, które jednoczeœnie zawieraj¹ "Specialist" i "Marketing"
+
+--2.3 Wyœwietl te rekordy, które zawieraj¹ "Specialist" lub "Marketing"
+
+--2.4 Z tabeli Production.Product wyœwietl tylko te rekordy, które zawieraj¹ w kolumnie Name chocia¿ jedna cyfrê
+
+--2.5 Wyœwietl te rekordy, które w nazwie zawieraj¹ dwie cyfry ko³o siebie
+
+--2.6 Wyœwietl te rekordy, które w nazwie zawieraj¹ dwie cyfry ko³o siebie ale nie koñcz¹ siê cyfr¹
+
+--2.7 Wyœwietl te rekordy, w których nazwa sk³ada siê z 4 dowolnych znaków
