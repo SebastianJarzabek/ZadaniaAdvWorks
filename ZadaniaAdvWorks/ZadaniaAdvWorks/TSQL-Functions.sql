@@ -185,3 +185,87 @@ FROM
 	HumanResources.Employee e
 WHERE 
 	BirthDate BETWEEN DATEADD(YEAR,-1,@d) AND DATEADD(year,1,@d)
+
+/*------------------------------------------------------------------------*/
+--3.1. Zamówienia nale¿y podzieliæ ze wzglêdu na wysokoœæ podatku, jaki jest do zap³acenia. Wyœwietl z tabeli Sales.SalesOrderHeader kolumny: SalesOrderId, TaxAmt oraz:
+/*
+-liczbê 0 je¿eli podatek jest < 1000
+-liczbe 1000 je¿eli podatek jest >= 1000 and < 2000
+-itd.
+Wskazówka: Skorzystaj z funkcji FLOOR wyliczanej dla TaxAmt dzielonego przez 1000. Otrzymany wynik mnó¿ przez 1000.
+*/
+select 
+ss.SalesOrderID
+,ss.TaxAmt
+,floor(ss.TaxAmt/1000)*1000
+from 
+Sales.SalesOrderHeader as ss
+go
+
+--3.2. Napisz polecenie losuj¹ce liczbê z zakresu 1-49. Skorzystaj z funkcji RAND i CEILING. Wylosowane liczby mo¿esz wykorzystaæ w totolotku :)
+
+select 
+ceiling(rand()*49)
+go
+
+--3.3. Zaokr¹glij kwoty podatku z tabeli Sales.SalesOrderHeader (kolumna TaxAmt) do pe³nych z³otych/dolarów :)
+
+select
+ceiling(s.TaxAmt)
+from Sales.SalesOrderHeader s
+go
+--3.4. Zaokr¹glij kwoty podatku z tabeli Sales.SalesOrderHeader (kolumna TaxAmt) do tysiêcy z³otych/dolarów :)
+
+
+select
+ceiling(s.TaxAmt/1000)
+from Sales.SalesOrderHeader s
+go
+
+/*------------------------------------------------------------------------*/
+--4.1 Tabela HumanResources.Shift zawiera wykaz zmian w pracy i godzinê rozpoczêcia i zakoñczenia zmiany. Wyœwietl test powsta³y z po³¹czenia sta³ych napisów i danych w tabeli w postaci:
+	/*
+	Shift .......... starts at ..........
+	np.
+	Shift Day starts at 07:00
+	*/
+
+
+--4.2 Korzystaj¹c z funkcji Convert napisz zapytanie do tabeli HumanResources.Employee, które wyœwietli LoginId oraz datê HireDate w postaci DD.MM.YYYY (najpierw dzieñ, potem miesi¹c i na koñcu rok zapisany 4 cyframi, porozdzielany kropkami)
+
+--4.3 (* wymagana deklaracja zmiennej). Zapisz do zmiennej tekstowej typu VARCHAR(30) swoj¹ datê urodzenia w formacie d³ugim np '18 sierpnia 1979'. Korzystaj¹c z funkcji PARSE skonwertuj j¹ na datê. Zapis daty jaki zostanie "zrozumiany" zale¿y od wersji jêzykowej serwera i jego ustawieñ regionalnych i jêzykowych.
+
+--4.4 W dacie pope³nij literówkê (np. wymyœl œmieszn¹ nazwê miesi¹ca). Jak teraz koñczy siê konwersja?
+
+--4.5 Zmieñ polecenie z poprzedniego zadania tak, aby korzysta³o z funkcji TRY_PARSE. Jak teraz siê koñczy konwersja?
+
+
+/*------------------------------------------------------------------------*/
+--5.1 W firmie AdventureWorks wymyœlono, ¿e pracownikom bêd¹ nadawane "Rangi". Napisz zapytanie, które wyœwietli rekordy z tabeli HumanResources.Employee i je¿eli ró¿nica miêdzy dat¹ zatrudnienia a dat¹ dzisiejsz¹ jest >10 lat, to wyœwietli napis 'Old stager'. W przeciwnym razie ma wyœwietlaæ 'Adept'
+
+
+--5.2 Zmieñ zapytanie z poprzedniego æwiczenia tak, ¿e:
+/*
+-pracownicy ze sta¿em >10 lat maj¹ range 'Old stager'
+-pracownicy ze sta¿em >8 lat maj¹ rangê 'Veteran'
+-pozostali maj¹ rangê 'Adept'
+*/
+
+--5.3 Nale¿y przygotowaæ raport zamówieñ z tabeli Sales.SalesOrderHeader. Zestawienie ma zawieraæ:
+/*
+SalesOrderId,
+OrderDate,
+Nazwê dnia tygodnia po... hiszpañsku
+Skorzystaj z funkcji DATEPART i CHOOSE i napisz odpowiednie zapytanie
+*/
+/* 
+Oto lista nazw dni tygodnia po hiszpañsku:
+
+poniedzia³ek - lunes
+wtorek - martes
+œroda - miércoles
+czwartek - jueves 
+pi¹tek - viernes
+sobota - sábado
+niedziela - domingo
+*/
