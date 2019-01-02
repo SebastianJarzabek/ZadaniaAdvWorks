@@ -272,6 +272,6 @@ pp.ProductID
 ,pp.Style
 ,pp.Color
 from Production.Product as pp
-order by pp.ProductID asc
+order by 4,5
 go
 
