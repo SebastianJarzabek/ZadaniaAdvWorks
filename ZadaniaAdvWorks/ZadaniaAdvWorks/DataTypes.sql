@@ -38,3 +38,27 @@ Arithmetic overflow error for data type smallint, value = 32768.
 /* do 2,147,483,647 */
 --1.8 SprawdŸ definicjê tabeli HumanResources.Shift. Ile rekordów mo¿na wstawiæ do tej tabeli (zobacz typ kolumy ID?
 /*do 255 */
+
+/*-------------------------------------------------------------------------*/
+--2.1 Z tabeli HumanResources.Department wyœwietl nazwê. Zwróæ uwagê na nazwê pierwszego i ostatniego departamentu
+
+--2.2 Napisz skrypt, w którym:
+	/*zadeklarujesz zmienn¹ napisow¹ ,UNICODE, o maksymalnej d³ugoœci 1000 znaków
+	przypisz do niej pusty napis
+	poleceniem SELECT pobierz do tej zmiennej nazwê departamentu z rekordu z DepartamentID=1
+	Wyœwietl t¹ zmienn¹ 
+	Wyœwietl d³ugoœæ napisu (w literkach) i iloœæ konsumowanej przez ni¹ pamiêci
+	*/ 
+
+
+--2.3 Skopiuj poprzednie polecenie i zmieñ je tak, ¿e polecenie SELECT nie bêdzie zawieraæ klauzuli WHERE. Nazwa którego departamentu jest teraz wartoœci¹ zmiennej?
+
+--2.4 Aktualizuj¹c w SELECT zmienn¹ testow¹ zmieñ wyra¿enie na @s1+='/'+Name (SprawdŸ zawartoœæ zmiennej tekstowej wyœwietlaj¹c j¹)
+
+
+--2.5 SprawdŸ jaki typ jest u¿ywany w poni¿szych polach tabel i oceñ jak d³ugi napis mo¿na umieœciæ w zmiennej i ile pamiêci on zajmuje:
+	/*
+	HumanResources.Department - kolumna Name 
+	HumanResources.Employes - kolumna MartialStatus
+	Production.Product -kolumna Color
+	*/
