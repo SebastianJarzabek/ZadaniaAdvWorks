@@ -64,3 +64,124 @@ REPLICATE('*',15 - LEN(FORMAT(TotalDue,'0.00')))+FORMAT(TotalDue,'0.00')+'**'
 ,TotalDue
 FROM Sales.SalesOrderHeader
 go
+
+/*------------------------------------------------------------------------*/
+--2.1. Wyœwietl datê dzisiejsz¹
+
+select 
+GETDATE()
+,SYSDATETIME() --wieksza precyzja
+go
+
+--2.2. Z tabeli Sales.SalesOrderHeader wyœwietl:
+/*
+-SalesOrderId
+-orderDate
+-rok z daty OrderDate
+-miesi¹c z daty OrderDate
+-dzieñ z daty OrderDate
+-numer dnia tygodnia
+-numer tygodnia w roku
+*/
+
+select 
+ss.SalesOrderID
+,ss.OrderDate
+,YEAR(ss.OrderDate)
+,MONTH(ss.OrderDate)
+,DAY(ss.OrderDate)
+,DATEPART(dw,ss.OrderDate)
+,DATEPART(wk,ss.OrderDate)
+from Sales.SalesOrderHeader as ss
+go
+
+--2.3. Poprzednie polecenie zmieñ tak, aby miesi¹c i dzieñ tygodnia by³y wyœwietlane jako tekst a nie jako liczba
+
+select 
+ss.SalesOrderID
+,ss.OrderDate
+,YEAR(ss.OrderDate)
+,MONTH(ss.OrderDate)
+,DAY(ss.OrderDate)
+,DATEPART(dw,ss.OrderDate)
+,DATENAME(dw,ss.OrderDate)
+,DATEPART(wk,ss.OrderDate)
+from Sales.SalesOrderHeader as ss
+go
+
+
+--2.4.  (* - wymaga deklarowania zmiennej) - wyœwietl w jaki dzieñ tygodnia siê urodzi³eœ/³aœ
+declare @d date
+set @d ='1989-12-04'
+set DATEFIRST  1
+select 
+ DATEPART(dw,@d)
+,DATENAME(dw,@d)
+go
+
+--2.5.  Pracownicy, którzy w danym miesi¹cu maj¹ urodziny, w formie nagrody nie pracuj¹ na nocn¹ zmianê ;) . Trzeba przygotowaæ raport, w którym bêd¹ podane daty, kiedy pracownik nie mo¿e pracowaæ na nocce. Wyœwietl z tabeli HumanResources.Employee:
+/*
+-LoginID
+-BirthDate,
+-datê pocz¹tku miesi¹ca w którym pracownik ma urodziny
+-datê koñca miesi¹ca, w ktorym pracownik ma urodziny
+*/
+
+select 
+hre.LoginID
+,hre.BirthDate
+,DATEFROMPARTS(YEAR(Getdate()), month(hre.BirthDate),1) as PoczatekMiesiaca
+,EOMONTH(DATEFROMPARTS(YEAR(Getdate()), month(hre.BirthDate),1)) as KoniecMiesiaca
+from HumanResources.Employee as hre
+go
+--2.6. Zobacz ile czasu trwa realizowanie zamówieñ. Z tabeli Sales.SalesOrderHeader wyœwietl:
+/*
+-SalesOrderID
+-OrderDate
+-DueDate
+-ró¿nice w dniach miêdzy OrderDate a DueDate
+*/
+
+select 
+ss.SalesOrderID
+,ss.OrderDate
+,ss.DueDate
+,DATEDIFF(DAY, ss.OrderDate,ss.DueDate) as [days]
+from Sales.SalesOrderHeader as ss
+go
+--2.7. (* - wymaga deklarowania zmiennej) Wylicz swój wiek w latach i w dniach
+declare @d date
+set @d = '1989-12-04'
+declare @dt date
+set @dt = GETDATE()
+select
+datediff(year,@d,@dt)
+,datediff(day,@d,@dt)
+go
+
+--2.8.  W tabeli HumanResources.Employee odszukaj datê urodzenia pracownika z LoginID adventure-works\diane1. Napisz zapytanie, które wyœwietli rówieœników tego pracownika. Za³ó¿my, ¿e rówieœnik to osoba maksymalnie o rok starsza lub o rok m³odsza.
+
+SELECT * FROM HumanResources.Employee WHERE LoginID='adventure-works\diane1'
+
+SELECT 
+*
+FROM HumanResources.Employee e
+WHERE BirthDate BETWEEN DATEADD(YEAR,-1,'1986-06-05') AND DATEADD(year,1,'1986-06-05')
+
+--2.9. (* - wymaga deklarowania zmiennej)  Zmieñ rozwi¹zanie poprzedniego zadania tak, aby datê urodzenia adventure-works\diane1 zapisaæ w zmiennej i skorzystaæ z niej w zapytaniu wyœwietlaj¹cym rówieœników
+
+declare @d date
+
+select 
+	@d=BirthDate
+from 
+	HumanResources.Employee 
+where 
+	LoginID='adventure-works\diane1' 
+
+SELECT 
+	*
+FROM 
+	HumanResources.Employee e
+WHERE 
+	BirthDate BETWEEN DATEADD(YEAR,-1,@d) AND DATEADD(year,1,@d)
