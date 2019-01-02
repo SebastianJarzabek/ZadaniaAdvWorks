@@ -102,3 +102,79 @@ declare @t NVARCHAR(1000)
 --HumanResources.Department --Name - up to 50 chars up to 100B
 --HumanResources.Employes --MartialStatus - 1 char, 2 B
 --Production.Product --Color - up to 15 chars, up to 30 B
+
+/*-------------------------------------------------------------------------*/
+--3.1 Popatrz na poni¿szy fragment kodu:
+	/*
+	DECLARE @f DECIMAL =1.1
+	SELECT @f/2 ,@f/4 ,@f/8 ,@f/16 ,@f/32 ,@f/64 ,@f/128 ,@f/256 ,@f/512 ,@f/1024 ,@f/2048 ,@f/4096 ,@f/8192 ,@f/16384 ,@f/32768 
+	GO
+	Uruchom go i zobacz jakie wartoœci s¹ zwracane przy wyœwietlaniu wyliczanych wartoœci.
+	*/
+
+		DECLARE @f DECIMAL =1.1
+	SELECT @f/2 ,@f/4 ,@f/8 ,@f/16 ,@f/32 ,@f/64 ,@f/128 ,@f/256 ,@f/512 ,@f/1024 ,@f/2048 ,@f/4096 ,@f/8192 ,@f/16384 ,@f/32768 
+	GO
+
+
+
+
+--3.2. Wykonaj podobne obliczenia dla zmiennych typu REAL, FLOAT i MONEY
+
+		DECLARE @f REAL =1.1
+	SELECT @f/2 ,@f/4 ,@f/8 ,@f/16 ,@f/32 ,@f/64 ,@f/128 ,@f/256 ,@f/512 ,@f/1024 ,@f/2048 ,@f/4096 ,@f/8192 ,@f/16384 ,@f/32768 
+	GO
+	
+		DECLARE @f FLOAT =1.1
+	SELECT @f/2 ,@f/4 ,@f/8 ,@f/16 ,@f/32 ,@f/64 ,@f/128 ,@f/256 ,@f/512 ,@f/1024 ,@f/2048 ,@f/4096 ,@f/8192 ,@f/16384 ,@f/32768 
+	GO
+	
+		DECLARE @f MONEY =1.1
+	SELECT @f/2 ,@f/4 ,@f/8 ,@f/16 ,@f/32 ,@f/64 ,@f/128 ,@f/256 ,@f/512 ,@f/1024 ,@f/2048 ,@f/4096 ,@f/8192 ,@f/16384 ,@f/32768 
+	GO
+
+
+--3.3. Zadeklaruj zmienn¹ @f  FLOAT i zainicjuj j¹ wartoœci¹ -1. Wylicz ile to jest:
+/*
+@f +1
+@f + 0.5 +0.5
+@f+0.5+0.25+0.25
+@f+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1
+*/
+
+
+	DECLARE @f FLOAT
+	SELECT
+	@f = -1
+	,@f =@f + 0.5 +0.5
+	,@f =@f+0.5+0.25+0.25
+	,@f =@f+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1
+	GO
+
+--3.4. Zadeklaruj zmienn¹ @d odpowiedniego typu i wyœwietl
+/*
+datê dzisiejsz¹ (bez czêœci godzinowej)
+czas bez daty
+datê i czas
+*/
+
+declare @d Date
+select @d=GETDATE()
+print @d
+go
+
+declare @d time
+select @d=GETDATE()
+print @d
+go
+
+declare @d datetime
+select @d=GETDATE()
+print @d
+go
+
+--3.5. Wyœwietl zawartoœæ tabeli Sales.SalesOrderHeader i zastanów siê, czy typ wybrany w tej tabeli dla kolumn zwi¹zanych z dat¹ jest poprawny
+
+Select * 
+from Sales.SalesOrderHeader
+go
