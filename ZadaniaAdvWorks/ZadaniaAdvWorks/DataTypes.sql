@@ -41,6 +41,11 @@ Arithmetic overflow error for data type smallint, value = 32768.
 
 /*-------------------------------------------------------------------------*/
 --2.1 Z tabeli HumanResources.Department wyœwietl nazwê. Zwróæ uwagê na nazwê pierwszego i ostatniego departamentu
+use adventureworks 
+
+select *
+from HumanResources.Department
+go
 
 --2.2 Napisz skrypt, w którym:
 	/*zadeklarujesz zmienn¹ napisow¹ ,UNICODE, o maksymalnej d³ugoœci 1000 znaków
@@ -50,11 +55,42 @@ Arithmetic overflow error for data type smallint, value = 32768.
 	Wyœwietl d³ugoœæ napisu (w literkach) i iloœæ konsumowanej przez ni¹ pamiêci
 	*/ 
 
+	declare @text NVARCHAR(1000)
+	set @text= ' '
+	select @text=Name
+	from HumanResources.Department
+	where DepartmentID=1
 
+	select @text
+	,len(@text)
+	,DATALENGTH(@text)
+	go
 --2.3 Skopiuj poprzednie polecenie i zmieñ je tak, ¿e polecenie SELECT nie bêdzie zawieraæ klauzuli WHERE. Nazwa którego departamentu jest teraz wartoœci¹ zmiennej?
+declare @t NVARCHAR(1000)
+	set @t= ' '
+	select @t=Name
+	from HumanResources.Department
+	--where DepartmentID=1
+
+	select @t
+	,len(@t)
+	,DATALENGTH(@t)
+	go
+	--TOOL DESIGN
 
 --2.4 Aktualizuj¹c w SELECT zmienn¹ testow¹ zmieñ wyra¿enie na @s1+='/'+Name (SprawdŸ zawartoœæ zmiennej tekstowej wyœwietlaj¹c j¹)
+declare @t NVARCHAR(1000)
+	set @t= ' '
+	select @t +='/'+ Name
+	from HumanResources.Department
+	--where DepartmentID=1
 
+	select @t
+	,len(@t)
+	,DATALENGTH(@t)
+	go
+
+	--dodaje wszystkie rekordy rozdzielajac je /
 
 --2.5 SprawdŸ jaki typ jest u¿ywany w poni¿szych polach tabel i oceñ jak d³ugi napis mo¿na umieœciæ w zmiennej i ile pamiêci on zajmuje:
 	/*
@@ -62,3 +98,7 @@ Arithmetic overflow error for data type smallint, value = 32768.
 	HumanResources.Employes - kolumna MartialStatus
 	Production.Product -kolumna Color
 	*/
+
+--HumanResources.Department --Name - up to 50 chars up to 100B
+--HumanResources.Employes --MartialStatus - 1 char, 2 B
+--Production.Product --Color - up to 15 chars, up to 30 B
