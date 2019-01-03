@@ -216,7 +216,6 @@ from Sales.SalesOrderHeader s
 go
 --3.4. Zaokr¹glij kwoty podatku z tabeli Sales.SalesOrderHeader (kolumna TaxAmt) do tysiêcy z³otych/dolarów :)
 
-
 select
 ceiling(s.TaxAmt/1000)
 from Sales.SalesOrderHeader s
@@ -230,15 +229,66 @@ go
 	Shift Day starts at 07:00
 	*/
 
+	select 
+	*
+	from HumanResources.Shift as hrs
+
+	select 
+	Concat ('The ', hrs.Name,' shift has start on',cast(hrs.StartTime as varchar(5)), ' and has finished on ',cast(hrs.EndTime as varchar(5)))
+	from HumanResources.Shift as hrs
 
 --4.2 Korzystaj¹c z funkcji Convert napisz zapytanie do tabeli HumanResources.Employee, które wyœwietli LoginId oraz datê HireDate w postaci DD.MM.YYYY (najpierw dzieñ, potem miesi¹c i na koñcu rok zapisany 4 cyframi, porozdzielany kropkami)
 
+	select 
+	e.LoginID
+	,e.HireDate
+	,CONVERT(varchar(20),e.HireDate,104)
+	from HumanResources.Employee e
+	go
+
 --4.3 (* wymagana deklaracja zmiennej). Zapisz do zmiennej tekstowej typu VARCHAR(30) swoj¹ datê urodzenia w formacie d³ugim np '18 sierpnia 1979'. Korzystaj¹c z funkcji PARSE skonwertuj j¹ na datê. Zapis daty jaki zostanie "zrozumiany" zale¿y od wersji jêzykowej serwera i jego ustawieñ regionalnych i jêzykowych.
+	
+	SET LANGUAGE  Polish
+
+	declare @d varchar(30)
+	set @d= '04 grudnia 1989'
+
+	select 
+	PARSE(@d as date) as result
+
+	SET LANGUAGE us_english
+	go
 
 --4.4 W dacie pope³nij literówkê (np. wymyœl œmieszn¹ nazwê miesi¹ca). Jak teraz koñczy siê konwersja?
 
+SET LANGUAGE  Polish
+
+	declare @d varchar(30)
+	set @d= '04 Grundzien 1989'
+
+	select 
+	PARSE(@d as date) as result
+
+	SET LANGUAGE us_english
+	/*
+	--Wystêpuje b³¹d --Msg 9819, Level 16, State 1, Line 269
+		B³¹d podczas konwertowania wartoœci ci¹gu „04 Grundzien 1989” na typ danych date przy u¿yciu kultury „”.
+*/
+
+go
 --4.5 Zmieñ polecenie z poprzedniego zadania tak, aby korzysta³o z funkcji TRY_PARSE. Jak teraz siê koñczy konwersja?
 
+SET LANGUAGE  Polish
+
+	declare @d varchar(30)
+	set @d= '04 Grundzien 1989'
+
+	select 
+	try_PARSE(@d as date) as result
+
+	SET LANGUAGE us_english
+
+	--Jako result jest null, nie wyst¹pi³ b³¹d
 
 /*------------------------------------------------------------------------*/
 --5.1 W firmie AdventureWorks wymyœlono, ¿e pracownikom bêd¹ nadawane "Rangi". Napisz zapytanie, które wyœwietli rekordy z tabeli HumanResources.Employee i je¿eli ró¿nica miêdzy dat¹ zatrudnienia a dat¹ dzisiejsz¹ jest >10 lat, to wyœwietli napis 'Old stager'. W przeciwnym razie ma wyœwietlaæ 'Adept'
