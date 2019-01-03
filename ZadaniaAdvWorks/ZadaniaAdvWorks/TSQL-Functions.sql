@@ -293,6 +293,14 @@ SET LANGUAGE  Polish
 /*------------------------------------------------------------------------*/
 --5.1 W firmie AdventureWorks wymyœlono, ¿e pracownikom bêd¹ nadawane "Rangi". Napisz zapytanie, które wyœwietli rekordy z tabeli HumanResources.Employee i je¿eli ró¿nica miêdzy dat¹ zatrudnienia a dat¹ dzisiejsz¹ jest >10 lat, to wyœwietli napis 'Old stager'. W przeciwnym razie ma wyœwietlaæ 'Adept'
 
+select * from HumanResources.Employee
+
+select 
+e.LoginID
+,e.HireDate
+,IIF(DATEDIFF(year, HireDate, GETDATE())>10,'Old stager','Adept')
+from HumanResources.Employee as e
+go
 
 --5.2 Zmieñ zapytanie z poprzedniego æwiczenia tak, ¿e:
 /*
@@ -300,6 +308,20 @@ SET LANGUAGE  Polish
 -pracownicy ze sta¿em >8 lat maj¹ rangê 'Veteran'
 -pozostali maj¹ rangê 'Adept'
 */
+select 
+e.LoginID
+,e.HireDate
+,IIF(DATEDIFF(year, HireDate, GETDATE())>10,'Old stager','Adept')
+from HumanResources.Employee as e
+go
+
+select 
+e.LoginID
+,e.HireDate
+,iif(datediff(year, hiredate, getdate())>10,'Oldstager',iif(datediff(year,hiredate,getdate())>8,'Veteran','Adept'))
+
+from HumanResources.Employee as e
+go
 
 --5.3 Nale¿y przygotowaæ raport zamówieñ z tabeli Sales.SalesOrderHeader. Zestawienie ma zawieraæ:
 /*
@@ -319,3 +341,18 @@ pi¹tek - viernes
 sobota - sábado
 niedziela - domingo
 */
+
+select
+ss.SalesOrderID
+,ss.OrderDate
+,datepart(Dw,ss.OrderDate)
+,choose(
+datepart(DW,ss.OrderDate)
+,'poniedzia³ek - lunes'
+,'wtorek - martes'
+,'œroda - miércoles'
+,'czwartek - jueves '
+,'pi¹tek - viernes'
+,'sobota - sábado'
+,'niedziela - domingo')
+from Sales.SalesOrderHeader as ss
