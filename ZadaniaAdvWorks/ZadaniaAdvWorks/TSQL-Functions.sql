@@ -356,3 +356,222 @@ datepart(DW,ss.OrderDate)
 ,'sobota - sábado'
 ,'niedziela - domingo')
 from Sales.SalesOrderHeader as ss
+
+/*------------------------Funkcje agreguj¹ce. GROUP BY, HAVING-----------------------------------------------*/
+
+--6.1 Pracujemy na tabeli Person.Person
+/*
+-oblicz iloœæ rekordów
+-oblicz ile osób poda³o swoje drugie imiê (kolumna MiddleName)
+-oblicz ile osób poda³o swoje pierwsze imiê (kolumna FirstName)
+-oblicz ile osób wyrazi³o zgodê na otrzymywanie maili (kolumna EmailPromotion ma byæ równa 1)
+*/
+
+select * from Person.Person as pp
+go
+
+select COUNT(*) from Person.Person as pp
+go
+
+select COUNT(pp.MiddleName) from Person.Person as pp
+go
+
+select COUNT(pp.FirstName) from Person.Person as pp
+go
+
+select COUNT(pp.EmailPromotion) from Person.Person as pp
+where EmailPromotion > 1
+go
+
+--6.2 Pracujemy na tabeli Sales.SalesOrderDetail
+/*
+-wyznacz ca³kowit¹ wielkoœæ sprzeda¿y bez uwzglêdnienia rabatów - suma UnitPrice * OrderQty
+-wyznacz ca³kowit¹ wielkoœæ sprzeda¿y z uwzglêdnieniiem rabatów - suma (UnitPrice-UnitPriceDiscount) * OrderQty
+*/
+select * from Sales.SalesOrderDetail as ss
+go
+
+select SUM(UnitPrice * OrderQty) from Sales.SalesOrderDetail as ss
+go
+
+select SUM((UnitPrice-UnitPriceDiscount) * OrderQty) from Sales.SalesOrderDetail as ss
+go
+
+--6.3 Pracujemy na tabeli Production.Product.
+/*
+-dla rekordów z podkategorii 14
+-wylicz minimaln¹ cenê, maksymaln¹ cenê, œredni¹ cenê i odczylenie standardowe dla ceny
+*/
+ select * from Production.Product as pp
+go
+
+select 
+min(pp.listprice)
+,max(pp.listprice)
+,AVG(pp.listprice)
+,STDEV(pp.listprice)
+from Production.Product as pp
+go
+
+--6.4 Pracujemy na tabeli Sales.SalesOrderHeader.
+/*
+-wyznacz iloœæ zamówieñ zrealizowanych przez poszczególnych pracowników (kolumna SalesPersonId)
+*/
+
+select 
+*
+from Sales.SalesOrderHeader as ss
+
+select 
+*
+from Sales.SalesOrderHeader as ss
+group by SalesPersonId
+go
+
+--6.5 Wynik poprzedniego polecenia posortuj wg wyliczonej iloœci malej¹co
+
+select 
+count(*)
+from Sales.SalesOrderHeader as ss
+group by SalesPersonId
+order by SalesPersonId asc
+go
+
+--6.6 Wynik poprzedniego polecenia ogranicz do zamówieñ z 2012 roku
+
+select 
+SalesPersonId
+,count(ss.SalesPersonId)
+from Sales.SalesOrderHeader as ss
+where OrderDate between '2012-01-01' and '2012-12-31'
+group by SalesPersonId
+order by SalesPersonId asc
+go
+--6.7 Wynik poprzedniego polecenia ogranicz tak, aby prezentowani byli te rekordy, gdzie wyznaczona suma jest wiêksza od 100000
+
+select 
+SalesPersonId
+,count(ss.SalesPersonId)
+from Sales.SalesOrderHeader as ss
+where  OrderDate between '2012-01-01' and '2012-12-31'
+group by SalesPersonId
+having sum(SubTotal)>100000
+order by SalesPersonId asc
+go
+
+--6.8 Pracujemy na tabeli Sales.SalesOrderHeader. 
+/*
+Policz ile zamówieñ by³o dostarczanych z wykorzystaniem ró¿nych metod dostawy (kolumna ShipMethod)
+*/
+
+select *
+from Sales.SalesOrderHeader as ss
+go
+
+select 
+ss.ShipMethodID
+,count(ss.ShipMethodID) as Quantity
+from Sales.SalesOrderHeader as ss
+group by ShipMethodID
+go
+
+--6.8 Pracujemy na tabeli Production.Product
+/*
+Napisz zapytanie, które wyœwietla:
+-ProductID
+-Name 
+-StandardCost
+-ListPrice 
+-ró¿nicê miêdzy ListPrice a StandardCost. Zaaliasuj j¹ "Profit"
+-w wyniku opuœæ te produkty które maj¹ ListPrice lub StandardCost <=0
+*/
+
+select 
+*
+from Production.Product
+go
+
+select
+pp.ProductID 
+,pp.Name
+,pp.StandardCost
+,pp.ListPrice
+,pp.StandardCost - pp.ListPrice as Profit
+from Production.Product as pp
+where ListPrice > 0 and StandardCost > 0
+go
+
+--6.9 Bazuj¹c na poprzednim zapytaniu, spróbujemy wyznaczyæ jakie kategorie produktów s¹ najbardziej zyskowne.
+
+select
+pp.ProductID 
+,pp.Name
+,pp.StandardCost
+,pp.ListPrice
+,pp.StandardCost - pp.ListPrice as Profit
+from Production.Product as pp
+where ListPrice > 0 and StandardCost > 0
+group by ProductSubcategoryID
+order by Profit
+go
+
+--6.10 Dla ka¿dej podkategorii wyznacz œredni, minimalny i maksymalny profit. Uporz¹dkuj wynik w kolejnoœci œredniego profitu malej¹co
+
+select
+avg(pp.StandardCost - pp.ListPrice) as Avg_Profit
+,min(pp.StandardCost - pp.ListPrice) as Min_Profit
+,max(pp.StandardCost - pp.ListPrice) as Max_Profit
+from Production.Product as pp
+where ListPrice > 0 and StandardCost > 0
+order by avg(pp.StandardCost - pp.ListPrice)
+go
+
+SELECT 
+p.ProductSubcategoryID
+,AVG(p.ListPrice -p.StandardCost) AS AvgProfit
+,MIN(p.ListPrice -p.StandardCost) AS MinProfit
+,MAX(p.ListPrice -p.StandardCost) AS MaxProfit
+FROM Production.Product p
+WHERE p.StandardCost > 0 AND p.ListPrice > 0
+GROUP BY p.ProductSubcategoryID
+ORDER BY AvgProfit DESC
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+--7.1 Wyœwietl rekordy z tabeli Person.Person, gdzie nie podano drugiego imienia (MiddleName)
+select 
+*
+from Person.Person as pp
+
+go
+
+
+--7.2 Wyœwietl rekordy z tabeli Person.Person, gdzie drugie imiê jest podane
+
+--7.3 Wyœwietl z tabeli Person.Person:
+/*
+-FirstName
+-MiddleName
+-LastName
+-napis z po³¹czenia ze sob¹ FirstName ' ' MiddleName ' ' i  LastName
+*/
+
+--7.4 Jeœli jeszcze tego nie zrobi³eœ dodaj wyra¿enie, które obs³u¿y sytuacjê, gdy MiddleName jest NULL. W takim przypadku chcemy prezentowaæ tylko FirstName ' ' i LastName
+
+--7.5 Jeœli jeszcze tego nie zrobi³eœ - wyeliminuj podwój¹ spacjê, jaka mo¿e siê pojawiæ miêdzy FirstName i LastNamr gdy MiddleName jest NULL.
+
+--7.6 Firma podpisuje umowê z firm¹ kuriersk¹. Cena us³ugi ma zale¿eñ od rozmiaru w drugiej kolejnoœci ciê¿aru, a gdy te nie s¹ znane od wartoœci wysy³anego przedmiotu.
+/*
+Napisz zapytanie, które wyœwietli:
+-productId
+-Name
+-size, weight i listprice
+-i kolumnê wyliczan¹, która poka¿e size (jeœli jest NOT NULL), lub weight (jeœli jest NOT NULL) lub listprice w przeciwnym razie
+*/
+
+--7.7 Firma kurierska oczekuje aby informacja w ostatniej kolumnie by³a dodatkowo oznaczona:
+/*
+-jeœli zawiera informacje o rozmiarze, to ma byæ poprzedzona napisem S:
+-jeœli zawiera informacje o ciê¿arze, to ma byæ poprzedzone napisem W:
+-w przeciwnym razie ma siê pojawiaæ L:
+*/
