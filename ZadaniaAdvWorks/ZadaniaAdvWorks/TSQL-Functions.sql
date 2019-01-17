@@ -538,15 +538,23 @@ ORDER BY AvgProfit DESC
 
 /*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
 
+set ansi_nulls on -- w³¹czenie porownania do null
+
 --7.1 Wyœwietl rekordy z tabeli Person.Person, gdzie nie podano drugiego imienia (MiddleName)
+
 select 
 *
 from Person.Person as pp
-
+where MiddleName is null
 go
 
-
 --7.2 Wyœwietl rekordy z tabeli Person.Person, gdzie drugie imiê jest podane
+
+select 
+*
+from Person.Person as pp
+where MiddleName is not null
+go
 
 --7.3 Wyœwietl z tabeli Person.Person:
 /*
@@ -555,6 +563,12 @@ go
 -LastName
 -napis z po³¹czenia ze sob¹ FirstName ' ' MiddleName ' ' i  LastName
 */
+
+select 
+FirstName, MiddleName, LastName,
+concat(pp.FirstName,' ',MiddleName,' ',LastName) as [Name]
+from Person.Person as pp
+go
 
 --7.4 Jeœli jeszcze tego nie zrobi³eœ dodaj wyra¿enie, które obs³u¿y sytuacjê, gdy MiddleName jest NULL. W takim przypadku chcemy prezentowaæ tylko FirstName ' ' i LastName
 
@@ -575,3 +589,40 @@ Napisz zapytanie, które wyœwietli:
 -jeœli zawiera informacje o ciê¿arze, to ma byæ poprzedzone napisem W:
 -w przeciwnym razie ma siê pojawiaæ L:
 */
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
+
+/*------------------------Null i funkcje pracuj¹ce z NULL-----------------------------------------------*/
