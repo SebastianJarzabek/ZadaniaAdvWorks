@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="TasksSql">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="SEBASTIAN:SEBASTIAN\Sebastian">
+          <Created>2019-02-24T13:34:59.9774495+01:00</Created>
+          <Type>SQL</Type>
+          <Server>SEBASTIAN</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName />
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="1_Select.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>1_Select.sql</FullPath>
+        </FileNode>
+        <FileNode Name="2_DataTypes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>2_DataTypes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="3_TSQLFunctions.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>3_TSQLFunctions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="4_ExtendedSelectCommands.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>4_ExtendedSelectCommands.sql</FullPath>
+        </FileNode>
+        <FileNode Name="5_TableJoins.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>5_TableJoins.sql</FullPath>
+        </FileNode>
+        <FileNode Name="6_Subquery.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>6_Subquery.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7_OperationsOnReturnedDatasets.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>7_OperationsOnReturnedDatasets.sql</FullPath>
+        </FileNode>
+        <FileNode Name="8_Insert.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>8_Insert.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_Delete.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>9_Delete.sql</FullPath>
+        </FileNode>
+        <FileNode Name="91_Update.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>91_Update.sql</FullPath>
+        </FileNode>
+        <FileNode Name="92_Transactions.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>92_Transactions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="93_BlockingAndIsolationLevelsOfTransactions.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>93_BlockingAndIsolationLevelsOfTransactions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="94_ErrorHandling.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>94_ErrorHandling.sql</FullPath>
+        </FileNode>
+        <FileNode Name="95_TempTables.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SEBASTIAN:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SEBASTIAN</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>95_TempTables.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
